@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title> Matching Game </title>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>-->
+<script src="jquery.js"></script>
+
+<style>
+    body {
+            background: url('carbon.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+.gameboard{
+
+    display: none;
+
+}
+
+img{
+
+    height: 200px;
+
+    width: 300px;
+
+}
+
+#win{
+
+    display: none;
+
+}
+
+#timer {
+    font-size: 20px;
+}
+#ball {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background-image: url('football.jpg'); /* Replace 'path/to/your/image.jpg' with the path to your image */
+      background-size: contain; /* Use contain to fit the entire image within the ball */
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      animation: bounce 4s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translate(0);
+      }
+      40% {
+        transform: translate(80vw); /* Move 80% of the viewport width to the right */
+      }
+      60% {
+        transform: translate(40vw); /* Move 40% of the viewport width to the right */
+      }
+    }
+
+    @keyframes rotate {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(45deg); /* Rotate the ball 45 degrees */
+      }
+    }
+    .centered-image {
+      width: 500px; /* Set the width of the image to 80% of the viewport width */
+      height: 500px; /* Set the height of the image to 80% of the viewport height */
+      display: block;
+      margin: auto; /* Center the image horizontally */
+    }
+    .button-container {
+      text-align: center; /* Center the button within the container */
+    }
+
+    .button-container a {
+      text-decoration: none; /* Remove the default underline for links */
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 2px solid #4CAF50; /* Border color matching the button background color */
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+      background-color: white;
+      color: #4CAF50;
+    }
+    #gridSize {
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    #instructions {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    
+</style>
+
+</head>
+
+<body>
+
+
+<div id="instructions">
+
+    <h3>Please Select Number of Pictures:</h3>
+
+    <select id="gridSize">
+
+        <option value="lvl1"> (8 pics)</option>
+
+        <option value="lvl2"> (10 pics)</option>
+
+        <option value="lvl3"> (12 pics)</option>
+
+    </select><br>
+
+    <h3> Level of difficulty:</h3>
+
+    <select id="revealTime">
+
+        <option value="8">Level 1 (8 second reveal time)</option>
+
+        <option value="5">Level 2 (5 second reveal time)</option>
+
+        <option value="3">Level 3 (3 sec reveal time)</option>
+
+    </select><br>
+
+    <div class="button-container">
+        <button onclick="start()">Start</button>
+      </div>
+    <br>
+    <br>
+    <div class="button-container">
+        <a href="credits.html" target="_blank">
+          <button>Go to Tutorial</button>
+        </a>
+        
+      </div>
+      <br>
+      <div class="button-container">
+
+      <a href="../index.html">
+        <button>Part A</button>
+    </a>
+  </div>
+
+</div>
+<br>
+
+<div id="lvl1" class="gameboard">
+
+    <table>
+
+        <tr>
+
+            <td id="1"><img src="" id="1"></td>
+
+            <td id="2"><img src="" id="2"></td>
+
+            <td id="3"><img src="" id="3"></td>
+
+            <td id="4"><img src="" id="4"></td>
+
+        </tr>
+
+        <tr>
+
+            <td id="5"><img src="" id="5"></td>
+
+            <td id="6"><img src="" id="6"></td>
+
+            <td id="7"><img src="" id="7"></td>
+
+            <td id="8"><img src="" id="8"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+
+<div id="lvl2" class="gameboard">
+
+    <table>
+
+        <tr>
+
+            <td id="1"><img src="" id="1"></td>
+
+            <td id="2"><img src="" id="2"></td>
+
+            <td id="3"><img src="" id="3"></td>
+
+            <td id="4"><img src="" id="4"></td>
+
+            <td id="5"><img src="" id="5"></td>
+
+        </tr>
+
+        <tr>
+
+            <td id="6"><img src="" id="6"></td>
+
+            <td id="7"><img src="" id="7"></td>
+
+            <td id="8"><img src="" id="8"></td>
+
+            <td id="9"><img src="" id="9"></td>
+
+            <td id="10"><img src="" id="10"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+
+<div id="lvl3" class="gameboard">
+
+    <table>
+
+        <tr>
+
+            <td id="1"><img src="" id="1"></td>
+
+            <td id="2"><img src="" id="2"></td>
+
+            <td id="3"><img src="" id="3"></td>
+
+            <td id="4"><img src="" id="4"></td>
+
+        </tr>
+
+        <tr>
+
+            <td id="5"><img src="" id="5"></td>
+
+            <td id="6"><img src="" id="6"></td>
+
+            <td id="7"><img src="" id="7"></td>
+
+            <td id="8"><img src="" id="8"></td>
+
+        </tr>
+
+        <tr>
+
+            <td id="9"><img src="" id="9"></td>
+
+            <td id="10"><img src="" id="10"></td>
+
+            <td id="11"><img src="" id="11"></td>
+
+            <td id="12"><img src="" id="12"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+
+<div id="win">
+
+    <h1>Congratulations !</h1>
+    <div id="ball"></div>
+    <img src="winner.jpg" alt="Your Image Description" class="centered-image">
+    <a href="index.html">
+        <button>Back to Main Menu</button>
+    </a>
+ 
+
+</div>
+
+
+<div id="timer">Time remaining: 0 seconds</div>
+
+<script src="game.js"></script>
